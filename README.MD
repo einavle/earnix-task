@@ -10,8 +10,8 @@
 ## Terraform
 
  terraform will create:
-  2. Frontend: HA load balancer
-  3. Backend: HA auto-scale group.
+  1. Frontend: HA load balancer
+  2. Backend: HA auto-scale group.
   
 Launch configuration:
 - each instance will bootstrap two containers:

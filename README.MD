@@ -5,7 +5,7 @@
 ### Pipeline
  pipeline makes sure to:
   1. deploy the lambda function to aws
-  2. deploy the api-endpoint to docker-hub
+  2. deploy the api-gateway to docker-hub
   
 ## Terraform
 
@@ -19,7 +19,7 @@ Launch configuration:
     2. lambda endpoint
     
 # POC compromises
-- don't implement the pipeline that builds and deploy the images - do it manually.
+- don't implement the pipeline that builds and push the images - do it manually.
 - don't implement the terraform that describe the infra - do it click-by-click on the aws console
 
 # security measures to protect this API

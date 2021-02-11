@@ -11,10 +11,11 @@ steps:
     git: "github"
     stage: "clone"
 
+# build and push the lambda gateway
   deploy-docker:
     type: "build"
     image_name: "einavl/earnix-time"
-    working_directory: "${{clone}}/lambda-service"
+    working_directory: "${{clone}}/lambda-gateway"
     tag: "1"
     dockerfile: "Dockerfile"
     stage: "build"

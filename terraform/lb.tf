@@ -14,16 +14,28 @@ resource "aws_lb" "earnix-lb" {
   }
 }
 
-resource "aws_lb_listener" "front_end" {
+resource "aws_lb_listener" "front_end-httpd" {
   load_balancer_arn = aws_lb.earnix-lb.arn
   port              = "80"
   protocol          = "HTTP"
 
   default_action {
     type             = "forward"
-    target_group_arn = aws_lb_target_group.earnix-tg.arn
+    target_group_arn = aws_lb_target_group.earnix-tg-httpd.arn
   }
 }
+
+resource "aws_lb_listener" "front_end-lambda" {
+  load_balancer_arn = aws_lb.earnix-lb.arn
+  port              = "5000"
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.earnix-tg-lambda.arn
+  }
+}
+
 
 output "lb-url" {
   value = aws_lb.earnix-lb.dns_name

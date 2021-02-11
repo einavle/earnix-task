@@ -13,6 +13,10 @@ client = boto3.client('lambda',
 app = Flask(__name__)
 app.logger.setLevel(logging.ERROR)
 
+@app.route("/health", methods=['GET'])
+def health():
+    return ('', 204)
+
 @app.route("/", methods=['GET'])
 def getTime():
     result = client.invoke(FunctionName=conf.lambda_function_name,

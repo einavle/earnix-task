@@ -1,0 +1,29 @@
+stages:
+  - "clone"
+  - "deploy-docker"
+  - "deploy-lambda"
+
+steps:
+  clone:
+    type: "git-clone"
+    repo: "https://github.com/einavle/earnix-task"
+    revision: "${{CF_BRANCH}}"
+    git: "github"
+    stage: "clone"
+
+  deploy-docker:
+    type: "build"
+    image_name: "einavl/earnix-time"
+    working_directory: "${{clone}}/lambda-service"
+    tag: "1"
+    dockerfile: "Dockerfile"
+    stage: "build"
+
+  deploy-lambda:
+    type: "lambda"
+    arguments:
+      PACKAGE: ./lambda-function
+      AWS_CREDENTIALS_FILE: '${{AWS_CREDENTIALS_FILE}}'
+      AWS_PROFILE: default
+      AWS_REGION: us-west-2
+      AWS_STAGE: development

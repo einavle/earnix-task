@@ -24,4 +24,4 @@ def getTime():
 
     #---START OF SCRIPT(We only need this for local run)
 if __name__ == '__main__':
-    app.run(host='127.0.0.1', port=6464, debug= True)
+    app.run(debug=True, host='0.0.0.0')

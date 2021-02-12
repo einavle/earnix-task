@@ -5,5 +5,5 @@ sudo yum install docker -y
 sudo service docker start
 sudo usermod -a -G docker ec2-user
 
-docker run -d --rm -p 8080:80 httpd
+docker run -d --rm -p 80:80 httpd
 docker run -d --rm -p 5000:5000 einavl/earnix-time

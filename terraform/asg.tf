@@ -31,8 +31,8 @@ resource "aws_launch_configuration" "as_conf" {
   }
 }
 
-resource "aws_lb_target_group" "earnix-tg" {
-  name     = "earnix-lb-tg"
+resource "aws_lb_target_group" "earnix-tg-httpd" {
+  name     = "earnix-lb-tg-httpd"
   port     = 80
   protocol = "HTTP"
   vpc_id   = aws_vpc.vpc-earnix.id
@@ -44,6 +44,20 @@ resource "aws_lb_target_group" "earnix-tg" {
 
 }
 
+resource "aws_lb_target_group" "earnix-tg-lambda" {
+  name     = "earnix-lb-tg-lambda"
+  port     = 5000
+  protocol = "HTTP"
+  vpc_id   = aws_vpc.vpc-earnix.id
+  health_check {
+    interval = 30
+    path = "/health"
+    protocol = "HTTP"
+  }
+
+}
+
+
 
 resource "aws_autoscaling_group" "earnix-asg" {
   name                 = "earnix-asg"
@@ -52,5 +66,5 @@ resource "aws_autoscaling_group" "earnix-asg" {
   desired_capacity = 2
   vpc_zone_identifier = [aws_subnet.earnix-subnet-a.id, aws_subnet.earnix-subnet-b.id]
   launch_configuration = aws_launch_configuration.as_conf.name
-  target_group_arns = [aws_lb_target_group.earnix-tg.arn]
+  target_group_arns = [aws_lb_target_group.earnix-tg-httpd.arn, aws_lb_target_group.earnix-tg-lambda.arn]
 }

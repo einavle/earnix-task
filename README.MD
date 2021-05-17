@@ -1,4 +1,4 @@
-#A6
+#A7
 ## How to deploy
 - we need to run the pipeline  ./deploy-lambda/pipeline.yaml
 - run terraform apply within ./terraform
